@@ -1,0 +1,47 @@
+/* Auto Dropdwon Menu */
+
+@media screen and (min-width: 601px) {
+  .dropdown:hover .dropdown-menu{
+    display: block;
+  }
+    
+  /*
+  .dropdown-menu {
+    padding: 1px 26px 1px 0;
+  }
+  */
+  
+  .navbar-nav > li > .dropdown-menu {
+      padding: 1px 18px 1px 0;
+      border-radius: 4px;
+  }
+}
+
+/* Scroll to Top */
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 44px;
+  right: 30px;
+  z-index: 1000;
+  font-size: 18px;
+  border: solid 1px #eee;
+  outline: none;
+  background-color: var(--bgcolor);
+  color: white;
+  cursor: pointer;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+}
+
+#myBtn:hover {
+  background-color: coral;
+}
+
+/* Bootstrap Advanced */
+
+.mb-3 { margin-bottom: 3rem; }
+.mb-5 { margin-bottom: 5rem; }
+.mt-3 { margin-top: 3rem; }
+.mt-5 { margin-top: 5rem; }

@@ -1,0 +1,46 @@
+schemas:
+  bootstrap: 8000
+  ceremai: 8000
+favicon:
+  mimetype: image/vnd.microsoft.icon
+  path: ''
+  url: ''
+  use_default: 1
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: true
+logo:
+  path: ''
+  url: ''
+  use_default: true
+region_wells:
+  top_header_right: ''
+  left_middle_header: ''
+  middle_header: ''
+  right_middle_header: ''
+  navigation: ''
+  navigation_collapsible: ''
+  highlighted: ''
+  help: ''
+  header: ''
+  content: ''
+  sidebar_first: ''
+  sidebar_second: ''
+  footer_first: ''
+  footer_second: ''
+  footer_third: ''
+  footer_fourth: ''
+  footer_bottom_left: ''
+  footer_bottom_right: ''
+settings:  
+  fluid_container: 1
+  table_responsive: '-1'
+  table: ''
+  breadcrumb_home: 1
+  cdn_provider: ''
+  footer_boxed: 1
+  header_column_left: 2
+  header_column_center: 10
+  header_column_right: 0

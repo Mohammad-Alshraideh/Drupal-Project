@@ -1,0 +1,48 @@
+name: Ceremai
+description: Ceremai is responsive mobile optimized, based on Bootstrap and eStore.
+type: theme
+base theme: bootstrap
+core_version_requirement: ^8.8 || ^9
+
+dependencies:
+- imce:imce
+- owlcarousel:owlcarousel
+- toolbar_menu:toolbar_menu
+- metatag:metatag
+- taxonomy_menu:taxonomy_menu
+- taxonomy_manager:taxonomy_manager
+- toolbar_menu:toolbar_menu
+
+# Libraries.
+libraries:
+  - 'ceremai/global-styling'
+  - 'ceremai/bootstrap-scripts'
+  - 'ceremai/stacktable'
+
+# Regions.
+regions:
+  top_header_left:  'Top Header Left'
+  top_header_right: 'Top Header Right'
+  middle_header_left:  'Middle Header Left'
+  middle_header_center:  'Middle Header Center'
+  middle_header_right: 'Middle Header Right'
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  header: 'Header'
+  content: 'Content'
+  sidebar_first: 'Left Sidebar'
+  sidebar_second: 'Right Sidebar'
+  footer_pre_top: 'Footer Pre Top'
+  footer_first: 'Footer First Widget'
+  footer_second: 'Footer Second Widget'
+  footer_third: 'Footer Third Widget'
+  footer_fourth: 'Footer Fourth Widget'
+  footer_bottom_left: 'Footer Bottom Left'
+  footer_bottom_right: 'Footer Bottom Right'
+
+# Information added by Drupal.org packaging script on 2023-01-30
+version: '1.0.9'
+project: 'ceremai'
+datestamp: 1675037204

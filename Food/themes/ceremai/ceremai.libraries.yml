@@ -1,0 +1,41 @@
+global-styling:
+  css:
+    theme:
+      css/bootstrap.min.css: {}
+      css/colorscheme.css: {}
+      css/advanced.css: {}
+      css/scrolltop.css: {}
+      css/component.css: {}
+      css/header.css: {}
+      css/content.css: {}
+      css/footer.css: {}
+      css/styles.css: {}
+      css/custom.css: {}
+  js:
+    js/ceremai.header.js: {}
+    js/ceremai.anchor_scroll.js: {}
+    js/ceremai.stacktable.js: {}
+    js/advanced.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+bootstrap-scripts:
+  remote: https://getbootstrap.com/docs/3.3/
+  license:
+    name: MIT
+    url: https://github.com/twbs/bootstrap/blob/v3-dev/LICENSE
+    gpl-compatible: false
+  js:
+    /libraries/bootstrap/js/bootstrap.js: {}
+
+stacktable:
+  remote: https://github.com/johnpolacek/stacktable.js/
+  license:
+    name: MIT
+    url: https://github.com/johnpolacek/stacktable.js/blob/master/License.txt
+    gpl-compatible: false
+  js:
+    /libraries/stacktable.js/stacktable.js: {}
+  dependencies:
+    - core/jquery

@@ -1,0 +1,17 @@
+#drupal-off-canvas .form-select {
+	background: none;
+}
+
+#drupal-off-canvas select:not([multiple]) {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+#drupal-off-canvas .form-select {
+    margin: 0;
+}
+
+.bs-bg-light {
+	margin-bottom: 16px;
+	padding-top: 16px;
+}

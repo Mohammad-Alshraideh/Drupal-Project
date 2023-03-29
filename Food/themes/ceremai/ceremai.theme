@@ -1,0 +1,159 @@
+<?php
+
+/**
+ * @file
+ * The primary PHP file for the ceremai theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Xss;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function ceremai_preprocess_breadcrumb(array &$vars) {
+  $route = \Drupal::routeMatch();
+  $route_name = $route->getRouteName();
+  if ('view.blog.page_list_archive' == $route_name) {
+    if (count($vars['breadcrumb']) == 4) {
+      unset($vars['breadcrumb'][3]);
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for taxonomy-term.html.twig.
+ */
+function ceremai_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $vars) {
+  if (isset($vars['elements'])) {
+    /** @var \Drupal\taxonomy\TermInterface $term */
+    $term = $vars['elements']['#taxonomy_term'];
+    $suggestions[] = 'taxonomy_term__' . $vars['elements']['#view_mode'];
+    $suggestions[] = 'taxonomy_term__' . $term->bundle() . '__' . $vars['elements']['#view_mode'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views-view.html.twig.
+ */
+function ceremai_preprocess_views_view(&$vars) {
+  // Add class for each view with view_id and display_id values.
+  /*
+  if (isset($vars['id']) && isset($vars['display_id'])) {
+    $vars['attributes']['class'][] = "views-view-{$vars['id']}-{$vars['display_id']}";
+  }
+  */
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for block.html.twig.
+ */
+function ceremai_theme_suggestions_block_alter(array &$suggestions, array $vars) {
+  
+  if (!empty($vars['elements']['#id'])) {
+    $block = Block::load($vars['elements']['#id']);
+    $suggestions[] = 'block__' . $block->getRegion() . '__' . $vars['elements']['#id'];
+  }
+  // Use this 'else if' only if you are using page_manager module and want to
+  // know which region is the block.
+  elseif (isset($vars['elements']['#configuration']['region'])) {
+    $plugin_ids = explode(':', $vars['elements']['#plugin_id']);
+    $suggestions[] = 'block__page_' . $vars['elements']['#configuration']['region'] . '__' . end($plugin_ids);
+    $suggestions[] = 'block__page_' . $vars['elements']['#configuration']['region'] . '__' . reset($plugin_ids);
+  }
+  
+}
+
+/**
+ * Implements hool_preprocess_HOOK() for comment.html.twig.
+ */
+function ceremai_preprocess_comment(&$vars) {
+  // Configure permalink url.
+  /** @var \Drupal\comment\CommentInterface $comment */
+  
+  /*
+  $comment = $vars['elements']['#comment'];
+  $vars['permalink_url'] = Url::fromUserInput("#comment-{$comment->id()}");
+  */
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function ceremai_preprocess_page(&$vars) {
+
+  $vars['header_column_left']   = theme_get_setting('header_column_left');   if (is_null($vars['header_column_left']))   { $vars['header_column_left']   = 3; }
+  $vars['header_column_center'] = theme_get_setting('header_column_center'); if (is_null($vars['header_column_center'])) { $vars['header_column_center'] = 9; }
+  $vars['header_column_right']  = theme_get_setting('header_column_right');  if (is_null($vars['header_column_right']))  { $vars['header_column_right']  = 0; }
+  
+  $vars['footer_boxed'] = theme_get_setting('footer_boxed');
+  
+  // Define and process copyright text.
+  $copyright_text = theme_get_setting('copyright_text');
+  if (!empty($copyright_text)) {
+    $copyright_text = str_replace('@year', date('Y'), theme_get_setting('copyright_text'));
+    $vars['copyright_text'] = $copyright_text;
+  }
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function ceremai_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  // Lock Fluid container option in the General Bootstrap theme settings.
+  $form['general']['container']['fluid_container']['#default_value'] = 1;
+  $form['general']['container']['fluid_container']['#disabled'] = FALSE;
+  $form['general']['container']['fluid_container']['#description'] = t('Ceremai theme works with container and container-fluid.');
+
+  // Theme Settings
+  
+  $form['ceremai_settings'] = [
+            '#type' => 'vertical_tabs',
+            '#title' => t('Ceremai Settings'),
+        ];
+        $form['header'] = [
+            '#type' => 'details',
+            '#title' => t('Header'),
+            '#group' => 'ceremai_settings',
+        ];
+        
+        $form['header']['header_column_left'] = [
+            '#type' => 'select',
+            '#title' => t('Left Column Size'),
+            '#default_value' => theme_get_setting('header_column_left'),
+            '#description' => t('Column size from 1-12. Even this value has been set but if nothing on the Block then Drupal will hide this Block.'),
+            '#options' => range(0, 12,),
+        ];
+        
+        $form['header']['header_column_center'] = [
+            '#type' => 'select',
+            '#title' => t('Center Column Size'),
+            '#default_value' => theme_get_setting('header_column_center'),
+            '#description' => t('Column size from 1-12. Even this value has been set but if nothing on the Block then Drupal will hide this Block.'),
+            '#options' => range(0, 12),
+        ];
+        
+        $form['header']['header_column_right'] = [
+            '#type' => 'select',
+            '#title' => t('Right Column Size'),
+            '#default_value' => theme_get_setting('header_column_right'),
+            '#description' => t('Column size from 1-12. Even this value has been set but if nothing on the Block then Drupal will hide this Block.'),
+            '#options' => range(0, 12),
+        ];
+        
+        $form['footer'] = [
+            '#type' => 'details',
+            '#title' => t('Footer'),
+            '#group' => 'ceremai_settings',
+        ];
+        
+        $form['footer']['footer_boxed'] = [
+            '#type' => 'checkbox',
+            '#title' => t('Use Boxed mode for Footer'),
+            '#default_value' => theme_get_setting('footer_boxed'),
+            '#description' => t('Select Footer mode to Boxed or Wide '),
+        ];
+  
+}
